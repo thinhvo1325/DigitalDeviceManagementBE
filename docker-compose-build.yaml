@@ -24,14 +24,14 @@ services:
       context: ./
       dockerfile: ./docker/rabbitmq/dockerfile
   #--------------redis-------------------#
-  redis:
-    image: final_project/redis
-    build: 
-        context: ./
-        dockerfile: ./docker/redis/dockerfile
-  #--------------Elasticsearch-------------------#
-  elasticsearch:
-    image: final_project/elasticsearch
-    build:
-      context: ./
-      dockerfile: ./docker/elasticsearch/dockerfile
+  # redis:
+  #   image: final_project/redis
+  #   build: 
+  #       context: ./
+  #       dockerfile: ./docker/redis/dockerfile
+  # #--------------Elasticsearch-------------------#
+  # elasticsearch:
+  #   image: final_project/elasticsearch
+  #   build:
+  #     context: ./
+  #     dockerfile: ./docker/elasticsearch/dockerfile

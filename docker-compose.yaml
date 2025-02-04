@@ -113,7 +113,7 @@ services:
       - TZ=Asia/Ho_Chi_Minh
     restart: on-failure:10
     depends_on:
-      - elasticsearch 
+      # - elasticsearch 
       - rabbitmq
     command: bash -c "python main.py"
   
