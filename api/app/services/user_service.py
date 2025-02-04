@@ -32,7 +32,10 @@ class UserService(SqlAchemyAbstract):
                 return handler_response(400, None, "User đã tồn tại")
             
             result = await super().create(data, with_commit)
-            return handler_response(200, data, "Tạo user thành công")
+            result = result.__dict__
+            result.pop('_sa_instance_state')
+            result['access_token'] = create_token(data)
+            return handler_response(200, result, "Tạo user thành công")
         except Exception as e:
             return handler_response(500, None, str(e))
         
