@@ -4,6 +4,7 @@ from typing import Optional
 class LoginSchema(BaseModel):
     username: str
     password: str   
+    is_google: Optional[bool] = False
 
 class UserCreateSchema(BaseModel):
     fullname: Optional[str]

@@ -12,10 +12,20 @@ class UserService(SqlAchemyAbstract):
         self._db = db
         self.set_model(User)
 
-    async def find_user(self, username, password):
+    async def find_user(self, username, password, is_google):
         try:
             checker = await self.search(fields={'username': username, "password": password}, is_absolute=True)
             if checker is None:
+                if is_google:
+                    data = {
+                        'username': username,
+                        'password': password
+                    }
+                    new_account = await self.create(data, with_commit=True)
+                    new_account = new_account.__dict__
+                    new_account.pop('_sa_instance_state')
+                    new_account['access_token'] = create_token(new_account)
+                    return handler_response(200, new_account, "Tìm thấy user")
                 return handler_response(403, None, "Sai tài khoản hoặc mật khẩu")
             data = checker.__dict__
             data.pop('_sa_instance_state')
