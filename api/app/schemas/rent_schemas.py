@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-
+from datetime import datetime
 class RentPriceSchema(BaseModel):
     price: Optional[str] = None
     time: Optional[str] = None
@@ -24,3 +24,12 @@ class RentSearchSchema(BaseModel):
 class SortSchemas(BaseModel):
     sort_by: Optional[str] = 'created_at'
     order: Optional[str] = 'desc'
+    
+
+class RentSChemas(BaseModel):
+    rent_id: Optional[int] = None
+    quantity: Optional[int] = None
+    rent_price: Optional[RentPriceSchema] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    total_price: Optional[str] = None
