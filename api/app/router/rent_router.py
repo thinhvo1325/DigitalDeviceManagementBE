@@ -63,6 +63,8 @@ async def list(
     
     if obj['rent_id'] is not None:
         result = await rent_service.find(obj['rent_id'])
+        if result is None:
+            return response_return(404, None, "Không tìm thấy thông tin")
         result = result.__dict__
         result.pop('_sa_instance_state')
         return response_return(200, result, "Tìm thấy thông tin")
