@@ -56,10 +56,17 @@ async def list(
     obj: RentSearchSchema = Depends(),
     sort_schema: SortSchemas = Depends(),
     rent_service: RentService = Depends(),
-    authen: AuthenService = Depends()
+    # authen: AuthenService = Depends()
 ) -> Any:
     obj = obj.dict()
     sort_schema = sort_schema.dict()
+    
+    if obj['rent_id'] is not None:
+        result = await rent_service.find(obj['rent_id'])
+        result = result.__dict__
+        result.pop('_sa_instance_state')
+        return response_return(200, result, "Tìm thấy thông tin")
+    
     return_data = []
     if sort_schema['sort_by'] not in ['for_1_days', 'for_3_days', 'for_7_days']:
         result = await rent_service.search(order={sort_schema['sort_by']: sort_schema['order']}, is_get_first=False)
@@ -123,5 +130,5 @@ async def rent(
     '''
     obj = obj.dict()
     obj['user_id'] = authen.fake_user.id
-    result  = await rent_deail_service.create_rent_deailt(obj)
+    result  = await rent_deail_service.create_rent_detail(obj)
     return response_return(**result)

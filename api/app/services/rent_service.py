@@ -12,7 +12,6 @@ class RentService(SqlAchemyAbstract):
         self._db = db
         self.set_model(RentInfo)
 
-    
     async def create_rent(self, data: RentInfo, with_commit=True):
         try:
             result = await super().create(data, with_commit)

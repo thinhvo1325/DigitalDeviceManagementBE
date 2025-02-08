@@ -20,6 +20,7 @@ class RentCreateSchema(BaseModel):
     
 class RentSearchSchema(BaseModel):
     text: Optional[str] = ''
+    rent_id: Optional[int] = None
 
 class SortSchemas(BaseModel):
     sort_by: Optional[str] = 'created_at'

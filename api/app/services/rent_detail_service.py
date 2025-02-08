@@ -12,9 +12,8 @@ class RentDeailService(SqlAchemyAbstract):
     def __init__(self, db: AsyncSession = Depends(get_db)) :
         self._db = db
         self.set_model(RentDetail)
-
     
-    async def create_rent_deailt(self, data: RentDetail, with_commit=True):
+    async def create_rent_detail(self, data: RentDetail, with_commit=True):
         try:
             result = await super().create(data, with_commit)
             return handler_response(200, data, "Tạo thông tin cho thuê thành công")

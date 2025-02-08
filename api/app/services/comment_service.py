@@ -6,12 +6,12 @@ from models.comment_model import CommentModel
 from cores.handler_response import handler_response
 from cores.common import create_token
 from sqlalchemy.future import select
+
 class CommentService(SqlAchemyAbstract):
     _db = None
     def __init__(self, db: AsyncSession = Depends(get_db)) :
         self._db = db
         self.set_model(CommentModel)
-
     
     async def create_comment(self, data: CommentModel, with_commit=True):
         try:
