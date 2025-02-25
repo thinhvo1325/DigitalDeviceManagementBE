@@ -18,7 +18,7 @@ router = APIRouter(
 async def create(
     obj: RentCreateSchema,
     rent_service: RentService = Depends(),
-    authen: AuthenService = Depends()
+    # authen: AuthenService = Depends()
 ) -> Any:
     '''
     category: Danh mục \n
@@ -47,7 +47,7 @@ async def create(
     sell_price: Giá bán FB\n
     '''
     obj = obj.dict()
-    obj['user_id'] = authen.fake_user.id
+    obj['user_id'] = 11
     result  = await rent_service.create_rent(obj)
     return response_return(**result)
 
@@ -116,7 +116,7 @@ async def list(
 async def rent(
     obj: RentSChemas,
     rent_deail_service: RentDeailService = Depends(),
-    authen: AuthenService = Depends()
+    # authen: AuthenService = Depends()
 ) -> Any:
     '''
     rent_id: id của rent\n
@@ -131,6 +131,6 @@ async def rent(
     total_price: Tổng giá thuê\n
     '''
     obj = obj.dict()
-    obj['user_id'] = authen.fake_user.id
+    obj['user_id'] = 11
     result  = await rent_deail_service.create_rent_detail(obj)
     return response_return(**result)
