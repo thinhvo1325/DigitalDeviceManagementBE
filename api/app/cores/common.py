@@ -57,43 +57,43 @@ def ResponseHandler(status_code: int = 200, **kwargs):
 
     raise HTTPException(status_code=status_code, detail=kwargs.get('detail', ''))
 
-from jose import JWTError, jwt as jose_jwt
+# from jose import JWTError, jwt as jose_jwt
 
-def create_token(data: dict):
-    encoded_jwt = jose_jwt.encode(data, '1122334455', algorithm='HS256')
-    return encoded_jwt
+# def create_token(data: dict):
+#     encoded_jwt = jose_jwt.encode(data, '1122334455', algorithm='HS256')
+#     return encoded_jwt
 
-def create_access_token(expires_delta: timedelta | None = None):
-    to_encode = {'id': 1}
+# def create_access_token(expires_delta: timedelta | None = None):
+#     to_encode = {'id': 1}
 
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + timedelta(minutes=9999999)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jose_jwt.encode(to_encode, os.environ['SECRET_KEY'], algorithm='HS256')
-    return encoded_jwt
+#     if expires_delta:
+#         expire = datetime.utcnow() + expires_delta
+#     else:
+#         expire = datetime.utcnow() + timedelta(minutes=9999999)
+#     to_encode.update({"exp": expire})
+#     encoded_jwt = jose_jwt.encode(to_encode, os.environ['SECRET_KEY'], algorithm='HS256')
+#     return encoded_jwt
 
 
-def create_token_authen(service: str):
-    if service == 'profile':
-        target_ip = os.environ['TARGET_PROFILE_IP']
-    elif service == 'user':
-        target_ip = os.environ['TARGET_USER_IP']
-    else:
-        raise HTTPException(status_code=404, detail='Invalid service url')
+# def create_token_authen(service: str):
+#     if service == 'profile':
+#         target_ip = os.environ['TARGET_PROFILE_IP']
+#     elif service == 'user':
+#         target_ip = os.environ['TARGET_USER_IP']
+#     else:
+#         raise HTTPException(status_code=404, detail='Invalid service url')
     
-    user_token = jose_jwt.encode({"service_name": "be-tva-service"}, os.environ['SECRET_KEY'], algorithm='HS256')
-    payload = {
-        'origin_ip': os.environ['ORIGIN_IP'],
-        'target_ip': target_ip,
-        'user_token': user_token
-    }
-    token = jose_jwt.encode(payload, os.environ['PRIVATE_KEY'])
-    return token
+#     user_token = jose_jwt.encode({"service_name": "be-tva-service"}, os.environ['SECRET_KEY'], algorithm='HS256')
+#     payload = {
+#         'origin_ip': os.environ['ORIGIN_IP'],
+#         'target_ip': target_ip,
+#         'user_token': user_token
+#     }
+#     token = jose_jwt.encode(payload, os.environ['PRIVATE_KEY'])
+#     return token
 
-def decode_JWT(token: str, with_secret_key: bool = True):
-    try:
-        return jose_jwt.decode(token, options={"verify_signature": False})
-    except JWTError as e:
-        return ResponseHandler(status_code=403, detail='Invalid token')
+# def decode_JWT(token: str, with_secret_key: bool = True):
+#     try:
+#         return jose_jwt.decode(token, options={"verify_signature": False})
+#     except JWTError as e:
+#         return ResponseHandler(status_code=403, detail='Invalid token')
