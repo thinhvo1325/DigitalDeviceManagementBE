@@ -13,7 +13,6 @@ async def verify_user(
     http_authorization_credentials = Depends(reusable_oauth2)
 ) -> User:
     uid = decode_JWT(http_authorization_credentials.credentials).get('id', None)
-    print(uid)
     if uid is None:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail='Invalid user token')
    

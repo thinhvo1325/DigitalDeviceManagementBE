@@ -1,5 +1,5 @@
 from cores.databases.db_helper import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Text
 
 class User(Base):
     """
@@ -9,9 +9,9 @@ class User(Base):
 
     id = Column(Integer, nullable=False, primary_key=True)
     
-    fullname = Column(String(100), nullable=True)
-    phone = Column(String(13), nullable=True)
-    address = Column(String(255), nullable=True)
-    email = Column(String(255), nullable=True)
-    username = Column(String(25), nullable=False)
-    password = Column(String(255), nullable=False)
+    fullname = Column(Text, nullable=True)
+    phone = Column(Text, nullable=True)
+    address = Column(Text, nullable=True)
+    email = Column(Text, nullable=True)
+    username = Column(Text, nullable=False)
+    password = Column(Text, nullable=False)
