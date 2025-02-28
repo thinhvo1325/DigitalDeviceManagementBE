@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import jwt
 import json
 import os
 from fastapi import HTTPException
