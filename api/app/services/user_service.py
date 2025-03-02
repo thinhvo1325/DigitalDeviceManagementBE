@@ -58,7 +58,12 @@ class UserService(SqlAchemyAbstract):
             new_password = data.get('new_password')
             if new_password is not None:
                 data['password'] = new_password
-            result = await super().update(id=id, data=data, with_commit=with_commit)
+            del data['new_password']
+            data_update = {}
+            for key, value in data.items():
+                if value is not None:
+                    data_update[key] = value
+            result = await super().update(id=id, data=data_update, with_commit=with_commit)
             return handler_response(200, data, "Cập nhật user thành công")
         except Exception as e:
             return handler_response(500, None, str(e))
