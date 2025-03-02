@@ -52,6 +52,7 @@ async def create(
     obj = obj.dict()
     obj['user_id'] = 11
     image_paths = []
+    print(obj['images'])
     for image_base64 in obj['images']:
         # Add padding to the base64 string
         image_base64 += '=' * (-len(image_base64) % 4)
