@@ -6,6 +6,9 @@ from cores.handler_response import response_return
 from depends.authen import AuthenService
 from services.rent_detail_service import RentDeailService
 from unidecode import unidecode
+import base64
+import os
+from uuid import uuid4
 router = APIRouter(
     prefix="/rent",
     tags=['Rent'],
@@ -48,6 +51,15 @@ async def create(
     '''
     obj = obj.dict()
     obj['user_id'] = 11
+    image_paths = []
+    for image_base64 in obj['images']:
+        image_data = base64.b64decode(image_base64)
+        file_name = f"{uuid4()}.png"
+        file_path = os.path.join("storage", file_name)
+        with open(file_path, "wb") as f:
+            f.write(image_data)
+        image_paths.append(file_path)
+    obj['images'] = image_paths
     result  = await rent_service.create_rent(obj)
     return response_return(**result)
 
