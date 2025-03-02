@@ -53,7 +53,7 @@ class UserService(SqlAchemyAbstract):
     async def update_user(self, id, data, with_commit=True):
         try:
             checker = await self.find(id)
-            if checker is None or checker.password == data.get('password'):
+            if checker is None:
                 return handler_response(403, None, "Sai tài khoản hoặc mật khẩu")
             new_password = data.get('new_password')
             if new_password is not None:
