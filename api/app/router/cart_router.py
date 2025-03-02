@@ -33,7 +33,7 @@ async def create(
 
 
 
-@router.list("/list")
+@router.get("/list")
 async def list(
     is_paid: int = 1,
     cart_service: CartService = Depends(),
