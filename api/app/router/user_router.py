@@ -16,6 +16,8 @@ async def info(
     authen: AuthenService = Depends()
 ) -> Any:
     result =  await user_service.find(authen.fake_user.id)
+    result = result.__dict__
+    result.pop('_sa_instance_state')
     return response_return(200, result, "Tìm thấy user")
 
 @router.post("/login")
