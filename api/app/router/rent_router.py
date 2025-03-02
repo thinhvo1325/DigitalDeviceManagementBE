@@ -60,7 +60,7 @@ async def create(
         file_path = os.path.join("storage", file_name)
         with open(file_path, "wb") as f:
             f.write(image_data)
-        file_path.replace("storage/", "")
+        file_path.replace("storage", "")
         image_paths.append(file_path)
     obj['images'] = image_paths
     result  = await rent_service.create_rent(obj)
