@@ -111,6 +111,15 @@ async def list(
                 return_data.append(r)
     return response_return(200, return_data, "Tìm thấy thông tin")  
 
+@router.delete("/delete")
+async def create(
+    id: int,
+    rent_service: RentService = Depends(),
+    # authen: AuthenService = Depends()
+) -> Any:
+    
+    result  = await rent_service.delete(id)
+    return response_return(**result)
 
 @router.post("/rent")
 async def rent(
