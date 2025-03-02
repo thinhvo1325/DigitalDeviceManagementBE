@@ -30,3 +30,19 @@ async def create(
     result = result.__dict__
     result.pop('_sa_instance_state')
     return response_return(200, result, "Tạo thông tin giỏ hàng thành công")
+
+
+
+@router.list("/list")
+async def list(
+    is_paid: int = 1,
+    cart_service: CartService = Depends(),
+    authen: AuthenService = Depends()
+) -> Any:
+    result = await cart_service.search(fields={'user_id': authen.fake_user.id, 'is_paid': is_paid}, is_get_first=False)
+    return_data = []
+    for r in result:
+        r = r.__dict__
+        r.pop('_sa_instance_state')
+        return_data.append(r)
+    return response_return(200, return_data, "Tạo thông tin giỏ hàng thành công")
