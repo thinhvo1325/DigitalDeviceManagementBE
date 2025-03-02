@@ -46,3 +46,12 @@ async def list(
         r.pop('_sa_instance_state')
         return_data.append(r)
     return response_return(200, return_data, "Tạo thông tin giỏ hàng thành công")
+
+@router.delete("/delete")
+async def delete(
+    id: int,
+    cart_service: CartService = Depends(),
+    authen: AuthenService = Depends()
+) -> Any:
+    result = await cart_service.delete(id)
+    return response_return(200, {}, "Tạo thông tin giỏ hàng thành công")
