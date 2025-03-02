@@ -95,6 +95,6 @@ def create_token_authen(service: str):
 
 def decode_JWT(token: str, with_secret_key: bool = True):
     try:
-        return jose_jwt.decode(token, options={"verify_signature": False})
+        return jose_jwt.decode(token, key=None, options={"verify_signature":False})
     except JWTError as e:
         return ResponseHandler(status_code=403, detail='Invalid token')
