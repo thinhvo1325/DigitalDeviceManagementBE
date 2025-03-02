@@ -26,7 +26,7 @@ async def create(
 
     obj = obj.dict()
     obj['user_id'] = authen.fake_user.id
-    result = await result = cart_service.create(obj)
+    result = await cart_service.create(obj)
     result = result.__dict__
     result.pop('_sa_instance_state')
     return response_return(200, result, "Tạo thông tin giỏ hàng thành công")
