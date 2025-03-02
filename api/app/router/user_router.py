@@ -10,7 +10,13 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-
+@router.get("/info")
+async def info(
+    user_service: UserService = Depends(),
+    authen: AuthenService = Depends()
+) -> Any:
+    result =  await user_service.find(authen.fake_user.id)
+    return response_return(200, result, "Tìm thấy user")
 
 @router.post("/login")
 async def login(
