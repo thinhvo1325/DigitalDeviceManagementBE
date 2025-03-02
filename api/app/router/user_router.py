@@ -30,12 +30,10 @@ async def create_users(
 
 @router.put("/update")
 async def update_users(
-    username: str,
-    password: str,
     obj: UserUpdateSchema, 
     user_service: UserService = Depends()
 ) -> Any:
-    result =  await user_service.update_user(username, password, obj)
+    result =  await user_service.update_user(obj.__dict__)
     return response_return(**result)
 
 
