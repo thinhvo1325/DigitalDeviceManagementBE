@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from schemas.user_schemas import UserCreateSchema, UserUpdateSchema, LoginSchema
 from services.user_service import UserService
+from depends.authen import AuthenService
 from typing import Any
 from cores.handler_response import response_return
 router = APIRouter(
@@ -31,9 +32,10 @@ async def create_users(
 @router.put("/update")
 async def update_users(
     obj: UserUpdateSchema, 
-    user_service: UserService = Depends()
+    user_service: UserService = Depends(),
+    authen: AuthenService = Depends()
 ) -> Any:
-    result =  await user_service.update_user(obj.__dict__)
+    result =  await user_service.update_user(authen.fake_user.id, obj.__dict__)
     return response_return(**result)
 
 

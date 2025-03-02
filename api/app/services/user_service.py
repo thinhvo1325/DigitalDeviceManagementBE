@@ -50,19 +50,15 @@ class UserService(SqlAchemyAbstract):
             return handler_response(500, None, str(e))
         
     
-    async def update_user(self,  data, with_commit=True):
+    async def update_user(self, id, data, with_commit=True):
         try:
-            checker = await self.search(fields={'username': data['username'], "password": data['password']}, is_absolute=True)
-            if checker is None:
+            checker = await self.find(id)
+            if checker is None or checker.password == data.get('password'):
                 return handler_response(403, None, "Sai tài khoản hoặc mật khẩu")
-            
-            del data['username']
-            del data['password']
             new_password = data.get('new_password')
-            del data['new_password']
             if new_password is not None:
                 data['password'] = new_password
-            result = await super().update(id=checker.id, data=data, with_commit=with_commit)
+            result = await super().update(id=id, data=data, with_commit=with_commit)
             return handler_response(200, data, "Cập nhật user thành công")
         except Exception as e:
             return handler_response(500, None, str(e))

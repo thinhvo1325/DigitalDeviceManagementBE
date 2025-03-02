@@ -17,7 +17,6 @@ class UserCreateSchema(BaseModel):
 
 
 class UserUpdateSchema(BaseModel):
-    username: Optional[str]
     password: Optional[str]
     fullname: Optional[str] = None
     phone: Optional[str] = None
