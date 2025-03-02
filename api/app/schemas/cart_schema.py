@@ -14,4 +14,8 @@ class CartCreateSchema(BaseModel):
     is_paid: Optional[int] = 1
     rent_price: Optional[list[RentPriceSchema]] = None
     
+
+class CartUpdateSchema(BaseModel):
+    ids: Optional[list[int]] = None
+    
     

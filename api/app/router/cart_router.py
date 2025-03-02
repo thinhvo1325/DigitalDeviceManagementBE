@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from services.rent_service import RentService
-from schemas.cart_schema import CartCreateSchema
+from schemas.cart_schema import CartCreateSchema, CartUpdateSchema
 from typing import Any
 from cores.handler_response import response_return
 from depends.authen import AuthenService
@@ -54,4 +54,14 @@ async def delete(
     authen: AuthenService = Depends()
 ) -> Any:
     result = await cart_service.delete(id)
+    return response_return(200, {}, "Tạo thông tin giỏ hàng thành công")
+
+@router.put("/update")
+async def update(
+    obj: CartUpdateSchema,
+    cart_service: CartService = Depends(),
+    authen: AuthenService = Depends()
+) -> Any:
+    for id in obj.ids:
+        result = await cart_service.update(id, data={"is_paid": 2})
     return response_return(200, {}, "Tạo thông tin giỏ hàng thành công")
