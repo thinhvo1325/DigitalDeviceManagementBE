@@ -52,15 +52,14 @@ async def create(
     obj = obj.dict()
     obj['user_id'] = 11
     image_paths = []
-    print(obj['images'])
     for image_base64 in obj['images']:
-        # Add padding to the base64 string
-        image_base64 += '=' * (-len(image_base64) % 4)
-        image_data = base64.b64decode(image_base64)
+        image_data = image_base64.split(",")[1]
+        image_bytes = base64.b64decode(image_data)
         file_name = f"{uuid4()}.png"
         file_path = os.path.join("storage", file_name)
         with open(file_path, "wb") as f:
-            f.write(image_data)
+            f.write(image_bytes)
+            
         file_path = file_path.replace("storage", "")
         image_paths.append(file_path)
     obj['images'] = image_paths
