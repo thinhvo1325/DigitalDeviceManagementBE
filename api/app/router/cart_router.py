@@ -76,5 +76,5 @@ async def update(
         
     from mail import send_email
         # Assuming you have a function to send email
-    send_email(authen.fake_user.email, email_content)
+    await send_email(authen.fake_user.email, email_content)
     return response_return(200, {}, "Tạo thông tin giỏ hàng thành công")

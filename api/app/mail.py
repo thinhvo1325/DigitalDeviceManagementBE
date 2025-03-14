@@ -2,7 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-def send_email(receiver_email, content):
+async def send_email(receiver_email, content):
     # Thông tin tài khoản và email
     sender_email = "vocuongthinh33@gmail.com"         # Địa chỉ email của bạn
     password = "oaaceixbkdzvhjur"                  # Mật khẩu (hoặc App Password)
@@ -31,5 +31,3 @@ def send_email(receiver_email, content):
     finally:
         server.quit()
 
-# Example usage
-send_email("ter.no.reply.product@gmail.com", "Đây là nội dung email được gửi qua smtplib.")
