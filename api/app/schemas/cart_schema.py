@@ -16,6 +16,10 @@ class CartCreateSchema(BaseModel):
     
 
 class CartUpdateSchema(BaseModel):
-    ids: Optional[list[int]] = None
+    ids: Optional[int] = None
+    days: Optional[int] = None
+    price: Optional[int] = None
     
     
+class UpdateCartSchema(BaseModel):
+    data: Optional[list[CartUpdateSchema]] = None

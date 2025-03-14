@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from services.rent_service import RentService
-from schemas.cart_schema import CartCreateSchema, CartUpdateSchema
+from schemas.cart_schema import CartCreateSchema, UpdateCartSchema
 from typing import Any
 from cores.handler_response import response_return
 from depends.authen import AuthenService
@@ -58,10 +58,23 @@ async def delete(
 
 @router.put("/update")
 async def update(
-    obj: CartUpdateSchema,
+    obj: UpdateCartSchema,
     cart_service: CartService = Depends(),
     authen: AuthenService = Depends()
 ) -> Any:
-    for id in obj.ids:
-        result = await cart_service.update(id, data={"is_paid": 2})
+    for data in obj.data:
+        result = await cart_service.update(data.ids, data={"is_paid": 2,
+                                                           "days": data.days,
+                                                           "price": data.price})
+        
+    
+    # Send email with updated items information
+    email_content = "Bạn đã thanh toán thành công:\n"
+    for data in obj.data:
+        item = await cart_service.search(fields={'id': data.ids}, is_get_first=True)
+        email_content += f"Sản phẩm: {item.title}, Số ngày thuê: {data.days}, Giá: {data.price}\n"
+        
+    from mail import send_email
+        # Assuming you have a function to send email
+    send_email(authen.fake_user.email, email_content)
     return response_return(200, {}, "Tạo thông tin giỏ hàng thành công")
