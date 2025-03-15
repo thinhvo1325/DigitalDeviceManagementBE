@@ -4,8 +4,8 @@ from email.mime.multipart import MIMEMultipart
 
 async def send_email(receiver_email, content):
     # Thông tin tài khoản và email
-    sender_email = "vocuongthinh33@gmail.com"         # Địa chỉ email của bạn
-    password = "oaaceixbkdzvhjur"                  # Mật khẩu (hoặc App Password)
+    sender_email = "kienluong12345@gmail.com"         # Địa chỉ email của bạn
+    password = "sqvgamkoyvojitil"                  # Mật khẩu (hoặc App Password)
 
     # Tạo đối tượng tin nhắn
     message = MIMEMultipart()
